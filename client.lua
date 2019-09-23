@@ -208,38 +208,12 @@ end
 
 
 
-local VehTypeSkill = {
-	["Automobile"] = 160,
-	["Monster Truck"] = 160,
-	["Unknown"] = 160,
-	["Trailer"] = 160,
-	["Train"] = 160,
-	["Boat"] = 160,
-	["Bike"] = 229,
-	["Quad"] = 229,
-	["BMX"] = 230,
-	["Helicopter"] = 169,
-	["Plane"] = 169
-}
 
 
 function updateWorld()
 	local theVehicle = getPedOccupiedVehicle(localPlayer)
 	if(theVehicle) then
 		if(getElementDimension(localPlayer) == 0 or getElementData(localPlayer, "City")) then
-			local x,y,z = getElementPosition(theVehicle)
-			if(not PData["Distance"]) then PData["Distance"] = 0 end
-			if(not PData["drx"]) then 
-				PData["drx"], PData["dry"], PData["drz"] = x, y, z
-			end
-			PData["Distance"] = PData["Distance"]+getDistanceBetweenPoints3D(PData["drx"], PData["dry"], PData["drz"], x, y, z)
-			PData["drx"], PData["dry"], PData["drz"] = x,y,z
-			if(PData["Distance"] >= 2000) then
-				local VehType = GetVehicleType(theVehicle)
-				PData["Distance"] = 0
-				triggerServerEvent("AddSkill", localPlayer, localPlayer, VehTypeSkill[VehType], 5)
-			end
-			
 			if(GetVehicleType(theVehicle) == "Automobile" or GetVehicleType(theVehicle) == "Bike") then
 				if(not isVehicleOnGround(theVehicle)) then
 					if(not PData["jump"]) then 
